@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="AskWeather is a personal weather, tasks, and quick search dashboard.">
+	<meta name="theme-color" content="#101827">
+	<link rel="stylesheet" href="style.css">
+	<link rel="icon" href="fav.png">
+	<title>AskWeather Dashboard</title>
+</head>
+
+<body>
+	<main class="dashboard">
+		<header class="topbar">
+			<div>
+				<p class="eyebrow">PERSONAL DASHBOARD</p>
+				<h1>AskWeather <span>☁</span></h1>
+				<p class="subtitle" id="greeting">Good evening. What are you working on?</p>
+			</div>
+			<div class="topbar-actions">
+				<div class="clock" aria-live="polite">
+					<strong id="clock">--:--</strong>
+					<span id="date">---</span>
+				</div>
+				<button class="icon-button" id="switch_theme" type="button" aria-label="Toggle theme"
+					title="Toggle theme">☾</button>
+			</div>
+		</header>
+
+		<section class="hero-grid">
+			<article class="weather-panel panel">
+				<div class="panel-heading">
+					<div>
+						<p class="eyebrow">WEATHER</p>
+						<h2 id="weather-city">Choose a city</h2>
+						<p class="weather-location" id="weather-location"></p>
+					</div>
+					<div class="weather-actions">
+						<span class="status-dot" aria-hidden="true"></span>
+						<button class="refresh-button" id="refresh-weather" type="button" aria-label="Refresh weather"
+							title="Refresh weather">↻</button>
+					</div>
+				</div>
+				<div class="weather-content">
+					<div class="weather-main">
+						<i id="icon" aria-hidden="true"></i>
+						<div>
+							<strong id="temp">--°</strong>
+							<p id="description" role="status">Search for a city to see the weather.</p>
+						</div>
+					</div>
+					<div class="weather-details">
+						<span>Feels like <b id="feels-like">--</b></span>
+						<span>Humidity <b id="humidity">--</b></span>
+						<span>Wind <b id="wind">--</b></span>
+					</div>
+					<div class="forecast" id="forecast" aria-label="Five day forecast"></div>
+				</div>
+				<form class="weather-form" id="weather-form">
+					<label class="sr-only" for="city">City name</label>
+					<div class="autocomplete">
+						<input id="city" type="search" placeholder="Search city, state, or country..." autocomplete="off"
+							aria-autocomplete="list" aria-controls="city-suggestions" aria-expanded="false" required>
+						<ul class="city-suggestions" id="city-suggestions" role="listbox"></ul>
+					</div>
+					<button type="submit">Search</button>
+				</form>
+				<div class="weather-tools">
+					<button class="text-button" id="use-location" type="button">⌖ Use my location</button>
+					<button class="text-button" id="share-weather" type="button">↗ Share weather</button>
+				</div>
+				<div class="recent-cities" id="recent-cities" aria-label="Recent cities"></div>
+			</article>
+
+			<article class="focus-panel panel">
+				<div class="panel-heading">
+					<div>
+						<p class="eyebrow">QUICK SEARCH</p>
+						<h2>Find something</h2>
+					</div>
+					<span class="shortcut">ENTER</span>
+				</div>
+				<form class="global-search" id="search-form">
+					<label class="sr-only" for="searchbox">Search the web</label>
+					<input id="searchbox" placeholder="Search the web..." type="search" autocomplete="off">
+					<button type="submit" aria-label="Search">↗</button>
+				</form>
+				<p class="hint">Use <code>-d</code> DuckDuckGo, <code>-y</code> YouTube, <code>-w</code> Wikipedia</p>
+				<div class="quick-links">
+					<a href="https://github.com/" target="_blank" rel="noopener noreferrer"><span>◈</span> GitHub</a>
+					<a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer"><span>▶</span> YouTube</a>
+					<a href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer"><span>♫</span> Spotify</a>
+					<a href="https://www.reddit.com/" target="_blank" rel="noopener noreferrer"><span>●</span> Reddit</a>
+					<a href="https://calendar.google.com/" target="_blank" rel="noopener noreferrer"><span>▣</span> Calendar</a>
+				</div>
+				<div class="integration-links">
+					<p class="integration-title">DEVELOPER TOOLS</p>
+					<div class="quick-links compact-links">
+						<a href="https://stackoverflow.com/" target="_blank" rel="noopener noreferrer">Stack Overflow</a>
+						<a href="https://developer.mozilla.org/" target="_blank" rel="noopener noreferrer">MDN</a>
+						<a href="https://www.npmjs.com/" target="_blank" rel="noopener noreferrer">npm</a>
+						<a href="https://codepen.io/" target="_blank" rel="noopener noreferrer">CodePen</a>
+						<a href="https://roadmap.sh/" target="_blank" rel="noopener noreferrer">Roadmap</a>
+						<a href="https://www.figma.com/" target="_blank" rel="noopener noreferrer">Figma</a>
+					</div>
+				</div>
+			</article>
+		</section>
+
+		<section class="bottom-grid">
+			<article class="todo-panel panel">
+				<div class="panel-heading">
+					<div>
+						<p class="eyebrow">TASKS</p>
+						<h2>Today's focus</h2>
+					</div>
+					<span class="task-count" id="task-count">0 left</span>
+				</div>
+				<form class="todo-card__form" id="todo-form" aria-label="Add a todo">
+					<label class="sr-only" for="todo">New task</label>
+					<input id="todo" placeholder="Add a task..." class="todo-card__form-input" type="text"
+						autocomplete="off">
+					<button type="submit" aria-label="Add task">+</button>
+				</form>
+				<ul class="todo-card__list"></ul>
+			</article>
+
+			<article class="about-panel panel">
+				<p class="eyebrow">ABOUT THIS APP</p>
+				<h2>Small tools, one calm space.</h2>
+				<p>Check the weather, keep a short task list, and jump into your favourite tools without opening a dozen tabs.</p>
+				<div class="feature-list">
+					<span>● Local tasks</span>
+					<span>● Dark mode</span>
+					<span>● Fast search</span>
+					<span>● Responsive UI</span>
+				</div>
+				<div class="social-links">
+					<a href="https://github.com/pavits112" target="_blank" rel="noopener noreferrer">GitHub profile ↗</a>
+					<a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+				</div>
+				<div class="focus-widget">
+					<div>
+						<p class="focus-label">FOCUS TIMER</p>
+						<strong id="focus-time">25:00</strong>
+					</div>
+					<button class="gradient-button small-button" id="focus-toggle" type="button">Start focus</button>
+				</div>
+				<p class="keyboard-hint"><kbd>/</kbd> search <kbd>W</kbd> weather <kbd>T</kbd> tasks</p>
+			</article>
+		</section>
+
+		<section class="extra-grid">
+			<article class="notes-panel panel">
+				<div class="panel-heading">
+					<div>
+						<p class="eyebrow">QUICK NOTES</p>
+						<h2>Scratchpad</h2>
+					</div>
+					<span class="save-state" id="note-state">Saved locally</span>
+				</div>
+				<textarea id="notes" maxlength="1200" placeholder="Write an idea, link, or reminder..."></textarea>
+				<div class="notes-footer"><span id="note-count">0 / 1200</span><button class="text-button" id="clear-notes" type="button">Clear</button></div>
+			</article>
+			<article class="github-panel panel">
+				<div class="panel-heading">
+					<div>
+						<p class="eyebrow">GITHUB</p>
+						<h2>Open source activity</h2>
+					</div>
+					<span class="github-dot">●</span>
+				</div>
+				<div class="github-profile">
+					<img id="github-avatar" src="https://avatars.githubusercontent.com/u/175150747?v=4" alt="Pavit Singh">
+					<div><strong id="github-name">Pavit Singh</strong><span id="github-bio">Loading profile...</span></div>
+				</div>
+				<div class="github-stats"><span><b id="github-repos">--</b> repos</span><span><b id="github-followers">--</b> followers</span><span><b id="github-following">--</b> following</span></div>
+				<a class="profile-link" href="https://github.com/pavits112" target="_blank" rel="noopener noreferrer">Open GitHub profile ↗</a>
+			</article>
+			<article class="streak-panel panel">
+				<p class="eyebrow">DAILY STREAK</p>
+				<div class="streak-number"><strong id="streak-count">1</strong><span>days</span></div>
+				<p>Open the dashboard daily to keep your local streak alive.</p>
+				<button class="gradient-button small-button" id="streak-check" type="button">Check in today</button>
+			</article>
+		</section>
+
+		<div class="command-palette" id="command-palette" hidden>
+			<div class="command-backdrop" data-close-command></div>
+			<div class="command-box" role="dialog" aria-modal="true" aria-label="Command palette">
+				<input id="command-input" placeholder="Type a command..." autocomplete="off">
+				<div id="command-list">
+					<button type="button" data-command="weather">Search weather</button>
+					<button type="button" data-command="tasks">Add a task</button>
+					<button type="button" data-command="notes">Open notes</button>
+					<button type="button" data-command="theme">Toggle theme</button>
+				</div>
+				<small>Press <kbd>Esc</kbd> to close</small>
+			</div>
+		</div>
+
+		<footer>AskWeather <span>•</span> Built for everyday use</footer>
+	</main>
+
+	<script src="theme.js"></script>
+	<script src="weather.js"></script>
+	<script src="todo.js"></script>
+	<script src="search.js"></script>
+	<script src="app.js"></script>
+</body>
+
+</html>
